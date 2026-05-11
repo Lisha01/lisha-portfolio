@@ -124,6 +124,7 @@ export function NavBar() {
   }, [menuOpen]);
 
   return (
+    <>
     <header
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-300",
@@ -204,12 +205,15 @@ export function NavBar() {
           </button>
         </div>
       </div>
+    </header>
 
-      {/* Mobile drawer — slides in below md */}
+    {/* Mobile drawer — slides in below md. Rendered OUTSIDE the header so
+        the header's backdrop-filter doesn't create a containing block that
+        clips the drawer's `position: fixed inset-0` to the header height. */}
       <div
         aria-hidden={!menuOpen}
         className={cn(
-          "fixed inset-0 z-40 md:hidden",
+          "fixed inset-0 z-[60] md:hidden",
           menuOpen ? "pointer-events-auto" : "pointer-events-none"
         )}
       >
@@ -280,6 +284,6 @@ export function NavBar() {
           </div>
         </div>
       </div>
-    </header>
+    </>
   );
 }
