@@ -188,15 +188,6 @@ function KudoTile({ kudo, index }: { kudo: Kudo; index: number }) {
             "0 14px 36px -16px rgba(14,23,41,0.32), 0 2px 6px -2px rgba(14,23,41,0.08)",
         }}
       >
-        {/* Tiny accent corner mark */}
-        <span
-          aria-hidden
-          className="pointer-events-none absolute right-3 top-3 z-10 flex h-5 items-center gap-1 rounded-full bg-white/85 px-1.5 font-mono text-[8px] font-semibold uppercase tracking-[0.16em] text-accent shadow-[0_2px_8px_-3px_rgba(14,23,41,0.4)] backdrop-blur"
-        >
-          <span className="block h-1 w-1 rounded-full bg-accent" />
-          {String(index + 1).padStart(2, "0")}
-        </span>
-
         <Image
           src={kudo.src}
           alt={kudo.alt}
