@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { track } from "@/lib/analytics";
 
 /* Hashes are prefixed with `/` so the links work from any page —
    on the home route they scroll to the section; from a case study
@@ -151,6 +152,7 @@ export function NavBar() {
             <Link
               key={l.href}
               href={l.href}
+              onClick={() => track("Nav Link Click", { label: l.label, href: l.href, location: "header" })}
               className="group relative text-[13px] font-medium text-ink-800"
             >
               {l.label}
@@ -170,6 +172,7 @@ export function NavBar() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={s.label}
+                onClick={() => track("Social Link Click", { label: s.label, href: s.href, location: "header" })}
                 className="flex h-9 w-9 items-center justify-center rounded-full text-ink-900 transition-all hover:bg-ink-900/5 hover:text-accent"
               >
                 <s.Icon size={20} />
@@ -181,6 +184,7 @@ export function NavBar() {
           {/* Open to work pill */}
           <Link
             href="/#contact"
+            onClick={() => track("Open To Work Click", { location: "header" })}
             className="group relative inline-flex min-h-9 items-center gap-2 rounded-full bg-ink-900 px-3.5 py-1.5 text-[12px] font-medium text-white transition-transform hover:-translate-y-0.5"
           >
             <span className="relative flex h-1.5 w-1.5">
@@ -257,7 +261,10 @@ export function NavBar() {
               <Link
                 key={l.href}
                 href={l.href}
-                onClick={() => setMenuOpen(false)}
+                onClick={() => {
+                  setMenuOpen(false);
+                  track("Nav Link Click", { label: l.label, href: l.href, location: "mobile-drawer" });
+                }}
                 className="flex min-h-11 items-center rounded-lg px-3 font-display text-[20px] tracking-tight text-ink-900 transition-colors hover:bg-ink-900/5"
               >
                 {l.label}
@@ -275,6 +282,7 @@ export function NavBar() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={s.label}
+                  onClick={() => track("Social Link Click", { label: s.label, href: s.href, location: "mobile-drawer" })}
                   className="flex h-11 w-11 items-center justify-center rounded-full text-ink-900 transition-all hover:bg-ink-900/5 hover:text-accent"
                 >
                   <s.Icon size={20} />

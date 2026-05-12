@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import {
@@ -6,6 +8,7 @@ import {
   WorkbookThumb,
   ZIScriptThumb,
 } from "./work-thumbnails";
+import { track } from "@/lib/analytics";
 
 type Project = {
   slug: string;
@@ -228,13 +231,35 @@ function ProjectCard({ project }: { project: Project }) {
 
   if (project.href) {
     return (
-      <Link href={project.href} className={className}>
+      <Link
+        href={project.href}
+        onClick={() =>
+          track("Case Study Click", {
+            slug: project.slug,
+            title: project.title,
+            tag: project.tag,
+            href: project.href,
+          })
+        }
+        className={className}
+      >
         {inner}
       </Link>
     );
   }
   return (
-    <a href="#contact" className={className}>
+    <a
+      href="#contact"
+      onClick={() =>
+        track("Case Study Click", {
+          slug: project.slug,
+          title: project.title,
+          tag: project.tag,
+          href: "#contact",
+        })
+      }
+      className={className}
+    >
       {inner}
     </a>
   );

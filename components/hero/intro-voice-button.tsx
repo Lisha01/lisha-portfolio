@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Play } from "lucide-react";
+import { track } from "@/lib/analytics";
 
 const AUDIO_SRC = "/audio/lisha-intro-clean.m4a";
 
@@ -17,7 +18,12 @@ export function IntroVoiceButton() {
     audio.preload = "metadata";
     audioRef.current = audio;
 
-    const handleEnded = () => setIsPlaying(false);
+    const handleEnded = () => {
+      setIsPlaying(false);
+      track("Intro Audio Ended", {
+        duration_seconds: Number.isFinite(audio.duration) ? audio.duration : null,
+      });
+    };
     const handlePause = () => setIsPlaying(false);
     const handleMetadata = () => {
       if (Number.isFinite(audio.duration)) setDuration(audio.duration);
@@ -43,18 +49,32 @@ export function IntroVoiceButton() {
     audio.currentTime = 0;
     const result = audio.play();
     setIsPlaying(true);
+    track("Intro Audio Play", {
+      duration_seconds: Number.isFinite(audio.duration) ? audio.duration : null,
+    });
     if (result && typeof result.catch === "function") {
       // If the file is missing or autoplay is blocked, fail soft
-      result.catch(() => setIsPlaying(false));
+      result.catch(() => {
+        setIsPlaying(false);
+        track("Intro Audio Play Failed");
+      });
     }
   };
 
   const stop = () => {
     const audio = audioRef.current;
     if (!audio) return;
+    const playedSeconds = audio.currentTime;
+    const totalSeconds = Number.isFinite(audio.duration) ? audio.duration : null;
     audio.pause();
     audio.currentTime = 0;
     // setIsPlaying(false) will fire via the `pause` event listener
+    track("Intro Audio Stop", {
+      played_seconds: playedSeconds,
+      duration_seconds: totalSeconds,
+      percent_listened:
+        totalSeconds && totalSeconds > 0 ? Math.round((playedSeconds / totalSeconds) * 100) : null,
+    });
   };
 
   return (

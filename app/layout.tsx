@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Fraunces, Inter_Tight, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import { AnalyticsPageView } from "@/components/analytics-page-view";
 
 const fraunces = Fraunces({
   variable: "--font-fraunces",
@@ -41,7 +42,10 @@ export default function RootLayout({
       lang="en"
       className={`${fraunces.variable} ${interTight.variable} ${jetbrainsMono.variable} antialiased`}
     >
-      <body className="bg-cream text-ink-900 min-h-screen">{children}</body>
+      <body className="bg-cream text-ink-900 min-h-screen">
+        <AnalyticsPageView />
+        {children}
+      </body>
     </html>
   );
 }

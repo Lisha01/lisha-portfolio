@@ -1,4 +1,7 @@
+"use client";
+
 import { Mail } from "lucide-react";
+import { track } from "@/lib/analytics";
 
 const socials = [
   { label: "Dribbble", href: "https://dribbble.com/lisha01" },
@@ -38,6 +41,7 @@ export function FooterSection() {
 
         <a
           href="mailto:Lishalokwani444@gmail.com"
+          onClick={() => track("Email Click", { location: "footer" })}
           className="mt-10 inline-flex min-h-11 max-w-full items-center gap-2.5 rounded-full bg-white px-6 py-3 font-sans text-[14px] font-medium text-ink-900 transition-transform hover:-translate-y-0.5 sm:px-7 sm:py-3.5 sm:text-[15px]"
         >
           <Mail size={16} className="shrink-0" />
@@ -55,6 +59,7 @@ export function FooterSection() {
                 href={s.href}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => track("Social Link Click", { label: s.label, href: s.href, location: "footer" })}
                 className="text-white underline-offset-4 transition-colors hover:text-accent hover:underline"
               >
                 {s.label}
