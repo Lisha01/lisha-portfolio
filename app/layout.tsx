@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Fraunces, Inter_Tight, JetBrains_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -41,7 +42,10 @@ export default function RootLayout({
       lang="en"
       className={`${fraunces.variable} ${interTight.variable} ${jetbrainsMono.variable} antialiased`}
     >
-      <body className="bg-cream text-ink-900 min-h-screen">{children}</body>
+      <body className="bg-cream text-ink-900 min-h-screen">
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
