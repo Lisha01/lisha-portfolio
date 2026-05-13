@@ -4,7 +4,12 @@ import { useEffect, useRef, useState } from "react";
 import { Play } from "lucide-react";
 import { track } from "@/lib/analytics";
 
-const AUDIO_SRC = "/audio/lisha-intro-clean.m4a";
+// Two sources: some browsers reject specific AAC profiles in the .m4a (e.g. HE-AAC),
+// so we list .mp3 as a fallback. Browser picks the first <source> it can decode.
+const AUDIO_SOURCES: ReadonlyArray<{ src: string; type: string }> = [
+  { src: "/audio/lisha-intro-clean.m4a", type: "audio/mp4" },
+  { src: "/audio/lisha-intro.mp3", type: "audio/mpeg" },
+];
 
 export function IntroVoiceButton() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -14,8 +19,15 @@ export function IntroVoiceButton() {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    const audio = new Audio(AUDIO_SRC);
+    const audio = document.createElement("audio");
     audio.preload = "metadata";
+    for (const { src, type } of AUDIO_SOURCES) {
+      const source = document.createElement("source");
+      source.src = src;
+      source.type = type;
+      audio.appendChild(source);
+    }
+    audio.load();
     audioRef.current = audio;
 
     const handleEnded = () => {
