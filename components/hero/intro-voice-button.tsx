@@ -47,16 +47,27 @@ export function IntroVoiceButton() {
     if (!audio) return;
     // Always restart from the top — explicit user requirement
     audio.currentTime = 0;
+    // Recover from a prior media error (e.g. a transient network failure during preload)
+    if (audio.error) audio.load();
     const result = audio.play();
     setIsPlaying(true);
     track("Intro Audio Play", {
       duration_seconds: Number.isFinite(audio.duration) ? audio.duration : null,
     });
     if (result && typeof result.catch === "function") {
-      // If the file is missing or autoplay is blocked, fail soft
-      result.catch(() => {
+      result.catch((err: unknown) => {
         setIsPlaying(false);
-        track("Intro Audio Play Failed");
+        const name = err instanceof DOMException ? err.name : undefined;
+        // AbortError = pause() ran before play() resolved (rapid Stop click or unmount). User intent, not failure.
+        if (name === "AbortError") return;
+        const message = err instanceof Error ? err.message : String(err);
+        track("Intro Audio Play Failed", {
+          error_name: name ?? "Unknown",
+          error_message: message,
+          media_error_code: audio.error?.code ?? null,
+          ready_state: audio.readyState,
+          network_state: audio.networkState,
+        });
       });
     }
   };
