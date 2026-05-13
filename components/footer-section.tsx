@@ -1,6 +1,6 @@
 "use client";
 
-import { Mail } from "lucide-react";
+import { Mail, FileDown } from "lucide-react";
 import { track } from "@/lib/analytics";
 
 const socials = [
@@ -39,17 +39,29 @@ export function FooterSection() {
           out loud — I&apos;d love to hear it.
         </p>
 
-        <a
-          href="mailto:Lishalokwani444@gmail.com"
-          onClick={() => track("Email Click", { location: "footer" })}
-          className="mt-10 inline-flex min-h-11 max-w-full items-center gap-2.5 rounded-full bg-white px-6 py-3 font-sans text-[14px] font-medium text-ink-900 transition-transform hover:-translate-y-0.5 sm:px-7 sm:py-3.5 sm:text-[15px]"
-        >
-          <Mail size={16} className="shrink-0" />
-          <span className="sm:hidden">Email me</span>
-          <span className="hidden truncate sm:inline">
-            Email me — Lishalokwani444@gmail.com
-          </span>
-        </a>
+        <div className="mt-10 flex flex-col items-center gap-3 sm:flex-row sm:flex-wrap sm:justify-center">
+          <a
+            href="mailto:Lishalokwani444@gmail.com"
+            onClick={() => track("Email Click", { location: "footer" })}
+            className="inline-flex min-h-11 max-w-full items-center gap-2.5 rounded-full bg-white px-6 py-3 font-sans text-[14px] font-medium text-ink-900 transition-transform hover:-translate-y-0.5 sm:px-7 sm:py-3.5 sm:text-[15px]"
+          >
+            <Mail size={16} className="shrink-0" />
+            <span className="sm:hidden">Email me</span>
+            <span className="hidden truncate sm:inline">
+              Email me — Lishalokwani444@gmail.com
+            </span>
+          </a>
+          <a
+            href="https://lisharesume.tiiny.site/"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => track("Resume Click", { location: "footer" })}
+            className="inline-flex min-h-11 items-center gap-2.5 rounded-full border border-white/25 bg-transparent px-6 py-3 font-sans text-[14px] font-medium text-white transition-colors hover:bg-white/10 sm:px-7 sm:py-3.5 sm:text-[15px]"
+          >
+            <FileDown size={16} className="shrink-0" />
+            Download résumé
+          </a>
+        </div>
 
         <p className="mt-8 font-sans text-[14px] text-white/60">
           Or find me on{" "}

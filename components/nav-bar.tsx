@@ -163,6 +163,17 @@ export function NavBar() {
 
         {/* Right group — socials + status pill */}
         <div className="flex items-center gap-3 md:gap-4">
+          {/* Résumé (desktop) */}
+          <a
+            href="https://lisharesume.tiiny.site/"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => track("Resume Click", { location: "header" })}
+            className="hidden min-h-9 items-center rounded-full px-3 text-[13px] font-medium text-ink-800 transition-colors hover:bg-ink-900/5 md:inline-flex"
+          >
+            Résumé
+          </a>
+
           {/* Socials (desktop) */}
           <div className="hidden items-center gap-1 lg:flex">
             {socials.map((s) => (
@@ -270,6 +281,18 @@ export function NavBar() {
                 {l.label}
               </Link>
             ))}
+            <a
+              href="https://lisharesume.tiiny.site/"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => {
+                setMenuOpen(false);
+                track("Resume Click", { location: "mobile-drawer" });
+              }}
+              className="flex min-h-11 items-center rounded-lg px-3 font-display text-[20px] tracking-tight text-ink-900 transition-colors hover:bg-ink-900/5"
+            >
+              Résumé
+            </a>
           </nav>
 
           <div className="mt-auto border-t border-ink-200/60 px-6 py-5">
