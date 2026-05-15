@@ -415,6 +415,122 @@ function Sparkle({ className, size = 10 }: { className?: string; size?: number }
 }
 
 /* ============================================================
+   5. SPOT THE BAD UX — frozen frame of the game in motion
+   Round progress dots across the top, a browser mockup with one
+   accent-haloed CTA (the "flaw"), and the game cursor centered on
+   that pill with a subtle bob so the whole composition reads as
+   "a player about to click."
+============================================================ */
+export function SpotTheBadUxThumb() {
+  const dotStates: Array<"done" | "active" | "future"> = [
+    "done",
+    "done",
+    "done",
+    "active",
+    "future",
+    "future",
+    "future",
+    "future",
+  ];
+
+  return (
+    <Backdrop>
+      {/* Round progress dots — current round pulses */}
+      <div className="absolute left-1/2 top-5 flex -translate-x-1/2 items-center gap-1.5">
+        {dotStates.map((s, i) => {
+          if (s === "active") {
+            return (
+              <span key={i} className="relative flex h-1.5 w-1.5">
+                <span className="absolute inset-0 animate-ping-soft rounded-full bg-white" />
+                <span className="relative h-1.5 w-1.5 rounded-full bg-white" />
+              </span>
+            );
+          }
+          if (s === "done") {
+            return (
+              <span
+                key={i}
+                className="h-1.5 w-1.5 rounded-full bg-white/90"
+              />
+            );
+          }
+          return (
+            <span
+              key={i}
+              className="h-1.5 w-1.5 rounded-full border border-white/40 bg-transparent"
+            />
+          );
+        })}
+      </div>
+
+      {/* Atmospheric sparkles */}
+      <Sparkle className="absolute left-[10%] top-[38%]" size={10} />
+      <Sparkle className="absolute right-[12%] bottom-[22%]" size={8} />
+      <Sparkle className="absolute right-[18%] top-[24%]" size={5} />
+
+      {/* Browser frame */}
+      <div className="absolute inset-0 flex items-center justify-center p-6 pt-12">
+        <div className="relative w-full max-w-[300px] overflow-hidden rounded-md border border-white/80 bg-white shadow-[0_24px_56px_-18px_rgba(14,23,41,0.65)]">
+          {/* Chrome */}
+          <div className="flex items-center gap-1 border-b border-ink-200/60 bg-cream px-2 py-1.5">
+            <span className="h-1 w-1 rounded-full bg-ink-200" />
+            <span className="h-1 w-1 rounded-full bg-ink-200" />
+            <span className="h-1 w-1 rounded-full bg-ink-200" />
+            <div className="ml-1 h-2 flex-1 rounded-sm bg-white/80" />
+          </div>
+
+          {/* Body */}
+          <div className="px-3.5 py-3">
+            <p className="font-mono text-[6px] uppercase tracking-[0.16em] text-ink-400">
+              Workspace
+            </p>
+            <p className="mt-1 font-display text-[13px] font-medium leading-tight text-ink-900">
+              Projects
+            </p>
+
+            <div className="mt-2.5 space-y-1">
+              <div className="h-[2px] w-full rounded-full bg-ink-200" />
+              <div className="h-[2px] w-[78%] rounded-full bg-ink-200" />
+              <div className="h-[2px] w-[88%] rounded-full bg-ink-200" />
+            </div>
+
+            <div className="mt-3.5 flex items-center justify-end gap-1.5">
+              <div className="h-3.5 w-10 rounded-full border border-ink-200 bg-white" />
+              {/* Focal "flaw" pill — accent fill, animated halo, custom cursor centered on it */}
+              <div className="relative">
+                <div
+                  aria-hidden
+                  className="absolute -inset-1.5 rounded-full bg-accent/40 blur-md"
+                  style={{ animation: "start-glow 2.4s ease-in-out infinite" }}
+                />
+                <div
+                  className="relative h-3.5 w-11 rounded-full bg-accent"
+                  style={{
+                    boxShadow:
+                      "0 0 0 1.5px var(--color-accent), 0 0 12px rgba(74, 124, 183, 0.7)",
+                  }}
+                />
+                {/* Game cursor centered on the pill */}
+                <div
+                  aria-hidden
+                  className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+                  style={{ animation: "bob 1.8s ease-in-out infinite" }}
+                >
+                  <div className="relative h-5 w-5">
+                    <div className="absolute inset-0 rounded-full border-2 border-accent bg-accent/30 shadow-[0_0_0_2px_rgba(255,255,255,0.65),0_4px_10px_-2px_rgba(74,124,183,0.55)]" />
+                    <div className="absolute left-1/2 top-1/2 h-1 w-1 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Backdrop>
+  );
+}
+
+/* ============================================================
    4. ZI SCRIPT — four → one
    Grid-driven so chips, curves, and target card share one
    coordinate system (no more drift between SVG and HTML).

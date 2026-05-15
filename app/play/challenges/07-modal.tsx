@@ -41,12 +41,23 @@ function ModalMockup() {
         </div>
       </div>
 
-      {/* Backdrop */}
+      {/*
+        The modal layout container is full-screen (absolute inset-0). It
+        catches the cursor when the player hovers empty space around the
+        card — without an opt-out, the hover-affordance CSS paints an
+        outline across the whole canvas. The `.nohover` class excludes
+        it from the rule. Keep pointer-events on (default) so the cursor
+        doesn't fall through to the dimmed page rows beneath the
+        backdrop.
+      */}
       <div className="absolute inset-0 bg-ink-900/40" />
 
-      {/* Modal */}
-      <div className="absolute inset-0 flex items-center justify-center px-6">
-        <div className="w-full max-w-[420px] rounded-2xl border border-ink-200/60 bg-white p-6 shadow-[0_30px_80px_-20px_rgba(14,23,41,0.45)]">
+      {/* Modal — the card is also .nohover so empty padding inside the
+          card (between the paragraph and the action row) doesn't paint
+          a full-card outline. Buttons and text inside still match the
+          hover rule because they don't carry the class. */}
+      <div className="nohover absolute inset-0 flex items-center justify-center px-6">
+        <div className="nohover w-full max-w-[420px] rounded-2xl border border-ink-200/60 bg-white p-6 shadow-[0_30px_80px_-20px_rgba(14,23,41,0.45)]">
           <h2 className="font-display text-[20px] font-medium tracking-tight text-ink-900">
             Delete database?
           </h2>

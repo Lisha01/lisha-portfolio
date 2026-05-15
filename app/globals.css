@@ -39,6 +39,15 @@
   --animate-scroll-x-rev: scroll-x-rev 36s linear infinite;
   --animate-ping-soft: ping-soft 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
   --animate-bob: bob 1.8s ease-in-out infinite;
+  --animate-reveal-rise: reveal-rise 350ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-reveal-pulse: reveal-pulse 1.4s ease-in-out infinite;
+  --animate-score-pop: score-pop 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-score-flash: score-flash 600ms ease-out forwards;
+  --animate-timer-tick: timer-tick 1s ease-in-out infinite;
+  --animate-start-glow: start-glow 2.4s ease-in-out infinite;
+  --animate-emoji-burst: emoji-burst 1.8s ease-out forwards;
+  --animate-tier-entry: tier-entry 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-tier-float: tier-float 2.6s ease-in-out infinite;
 }
 
 @keyframes scroll-x {
@@ -56,6 +65,98 @@
 @keyframes bob {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(4px); }
+}
+@keyframes countdown-shrink {
+  from { width: 100%; }
+  to { width: 0%; }
+}
+@keyframes reveal-rise {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes reveal-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 3px var(--color-accent), 0 0 0 8px rgba(74, 124, 183, 0.18);
+  }
+  50% {
+    box-shadow: 0 0 0 3px var(--color-accent), 0 0 0 14px rgba(74, 124, 183, 0.05);
+  }
+}
+@keyframes score-pop {
+  0% { opacity: 0; transform: translateY(6px) scale(0.85); }
+  20% { opacity: 1; transform: translateY(-2px) scale(1.05); }
+  100% { opacity: 0; transform: translateY(-28px) scale(1); }
+}
+@keyframes score-flash {
+  0% { color: var(--color-accent); transform: scale(1.08); }
+  100% { color: var(--color-ink-900); transform: scale(1); }
+}
+@keyframes timer-tick {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}
+@keyframes start-glow {
+  0%, 100% { opacity: 0.35; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.06); }
+}
+@keyframes emoji-burst {
+  0% { opacity: 0; transform: translateY(20px) scale(0) rotate(-20deg); }
+  35% { opacity: 1; transform: translateY(-14px) scale(1.25) rotate(10deg); }
+  65% { transform: translateY(-8px) scale(1) rotate(-4deg); }
+  100% { opacity: 0; transform: translateY(-44px) scale(0.9) rotate(0deg); }
+}
+@keyframes tier-entry {
+  0% { opacity: 0; transform: scale(0) rotate(-25deg); }
+  55% { opacity: 1; transform: scale(1.25) rotate(10deg); }
+  80% { transform: scale(0.94) rotate(-4deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+@keyframes tier-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(3deg); }
+}
+
+/* /play game reveal — pulses an accent halo around the data-flaw element
+   while the reveal callout is visible. Selector lives here because the
+   wrapper class is applied dynamically from React. */
+.reveal-active [data-flaw="true"] {
+  position: relative;
+  z-index: 1;
+  animation: reveal-pulse 1.4s ease-in-out infinite;
+}
+
+/* /play hover affordance — during a live round, outline the deepest
+   element under the cursor so the player can see exactly what would
+   register as their click. `:has(:hover)` narrows to leaf-most hover so
+   the outline doesn't fire on every ancestor.
+
+   `.nohover` is an opt-out for layout containers that span the entire
+   challenge area (e.g. a modal's flex centering wrapper) — otherwise
+   hovering empty space lands on the full-size container and paints
+   the outline across the whole canvas. */
+.challenge-playing :hover:not(:has(:hover)):not(.nohover) {
+  outline: 2px solid rgba(74, 124, 183, 0.6);
+  outline-offset: 1px;
+  background-color: rgba(74, 124, 183, 0.08);
+}
+
+/* Hide the native cursor inside the mockup on hover-capable devices so
+   the custom game-cursor (rendered from React) is the only visible
+   pointer. `!important` overrides browser defaults like button:hover →
+   pointer. Skipped on touch devices since they have no cursor anyway. */
+@media (hover: hover) and (pointer: fine) {
+  .challenge-playing,
+  .challenge-playing * {
+    cursor: none !important;
+  }
+}
+
+/* On touch devices, hide the custom cursor entirely — there's nothing
+   to track. */
+@media (hover: none) or (pointer: coarse) {
+  .game-cursor {
+    display: none !important;
+  }
 }
 
 :root {

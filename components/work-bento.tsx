@@ -57,7 +57,7 @@ const projects: Project[] = [
     title: "ZI Script",
     description:
       "Led a multi-team initiative at ZoomInfo to unify fragmented scripts across FormComplete, Chat, Schedule, and WebSights — reducing developer dependency and giving marketers direct control.",
-    span: "lg:col-span-4",
+    span: "lg:col-span-6",
     href: "/work/zi-script",
     Thumb: ZIScriptThumb,
   },
@@ -92,135 +92,8 @@ export function WorkBento() {
         {projects.map((p) => (
           <ProjectCard key={p.slug} project={p} />
         ))}
-        <ComingSoonCard />
       </div>
     </section>
-  );
-}
-
-function ComingSoonCard() {
-  return (
-    <div
-      className="relative flex flex-col overflow-hidden rounded-2xl border border-white/10 p-7 text-white md:col-span-2 lg:col-span-2"
-      style={{
-        background:
-          "linear-gradient(155deg, hsl(245, 65%, 11%) 0%, hsl(260, 50%, 16%) 100%)",
-      }}
-    >
-      {/* Visual banner — generative mesh */}
-      <div className="relative mb-6 h-36 overflow-hidden rounded-xl md:h-44">
-        {/* Mesh gradient base */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background: `
-              radial-gradient(at 15% 22%, hsla(240, 90%, 65%, 0.85) 0px, transparent 50%),
-              radial-gradient(at 82% 14%, hsla(282, 82%, 72%, 0.78) 0px, transparent 52%),
-              radial-gradient(at 90% 72%, hsla(320, 88%, 70%, 0.6) 0px, transparent 45%),
-              radial-gradient(at 22% 85%, hsla(198, 95%, 62%, 0.65) 0px, transparent 55%),
-              linear-gradient(135deg, hsl(245, 72%, 14%) 0%, hsl(265, 60%, 19%) 100%)
-            `,
-          }}
-        />
-
-        {/* Conic halo top-right */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full opacity-70"
-          style={{
-            background:
-              "conic-gradient(from 90deg, transparent 0deg, #A78BFA 80deg, #F9A8D4 160deg, #93C5FD 240deg, transparent 320deg)",
-            filter: "blur(18px)",
-          }}
-        />
-
-        {/* Aurora light column (very subtle vertical band) */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-y-0 left-[35%] w-[2px] opacity-50"
-          style={{
-            background:
-              "linear-gradient(180deg, transparent 0%, rgba(233,213,255,0.9) 45%, rgba(252,165,165,0.6) 70%, transparent 100%)",
-            filter: "blur(1px)",
-          }}
-        />
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-y-0 left-[64%] w-px opacity-40"
-          style={{
-            background:
-              "linear-gradient(180deg, transparent 10%, rgba(186,230,253,0.9) 50%, transparent 95%)",
-            filter: "blur(1px)",
-          }}
-        />
-
-        {/* Particle dots */}
-        {[
-          { top: "18%", left: "70%", size: 3, op: 0.95 },
-          { top: "30%", left: "12%", size: 2, op: 0.7 },
-          { top: "52%", left: "88%", size: 2, op: 0.85 },
-          { top: "74%", left: "20%", size: 1.5, op: 0.6 },
-          { top: "85%", left: "62%", size: 2, op: 0.75 },
-          { top: "12%", left: "44%", size: 1.5, op: 0.55 },
-        ].map((p, i) => (
-          <span
-            key={i}
-            aria-hidden
-            className="absolute rounded-full bg-white shadow-[0_0_6px_rgba(255,255,255,0.8)]"
-            style={{
-              top: p.top,
-              left: p.left,
-              width: `${p.size}px`,
-              height: `${p.size}px`,
-              opacity: p.op,
-            }}
-          />
-        ))}
-
-        {/* Focal glass chip — "AI · Generating" */}
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-          <div className="rounded-full border border-white/30 bg-white/[0.12] px-3 py-1.5 shadow-[0_10px_30px_rgba(0,0,0,0.3)] backdrop-blur-md">
-            <span className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.16em] text-white">
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="absolute inset-0 animate-ping-soft rounded-full bg-fuchsia-300" />
-                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-fuchsia-300" />
-              </span>
-              AI · Generating
-            </span>
-          </div>
-        </div>
-
-        {/* Grain */}
-        <div className="grain-overlay pointer-events-none absolute inset-0 opacity-25" />
-      </div>
-
-      {/* Text */}
-      <p className="eyebrow text-white/55">Personal · In Progress</p>
-      <h3 className="mt-3 font-display text-[22px] font-medium leading-tight tracking-tight md:text-[24px] lg:text-[28px]">
-        My{" "}
-        <span
-          className="font-light italic"
-          style={{ color: "#E9D5FF" }}
-        >
-          AI
-        </span>{" "}
-        projects
-      </h3>
-      <p className="mt-3 font-sans text-[14px] leading-relaxed text-white/65">
-        A new collection of personal explorations at the intersection of
-        design and AI.
-      </p>
-
-      <div className="mt-auto pt-6">
-        <span className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.16em] text-white backdrop-blur-sm">
-          <span className="relative flex h-1.5 w-1.5">
-            <span className="absolute inset-0 animate-ping-soft rounded-full bg-white" />
-            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-white" />
-          </span>
-          Coming soon
-        </span>
-      </div>
-    </div>
   );
 }
 

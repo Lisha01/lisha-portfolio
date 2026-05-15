@@ -114,7 +114,7 @@ function DashboardMockup() {
 
         {/* Recent table */}
         <div className="mt-6 overflow-hidden rounded-xl border border-ink-200/60">
-          <div className="grid grid-cols-[1fr_88px_88px_24px] gap-3 border-b border-ink-200/60 bg-cream px-4 py-2.5 font-mono text-[10px] uppercase tracking-[0.16em] text-ink-400">
+          <div className="grid grid-cols-[minmax(0,1fr)_56px_64px_20px] gap-2 border-b border-ink-200/60 bg-cream px-3 py-2.5 font-mono text-[10px] uppercase tracking-[0.16em] text-ink-400 sm:grid-cols-[1fr_88px_88px_24px] sm:gap-3 sm:px-4">
             <span>Name</span>
             <span>Owner</span>
             <span>Status</span>
@@ -127,11 +127,11 @@ function DashboardMockup() {
           ].map((r, i, arr) => (
             <div
               key={r.name}
-              className={`grid grid-cols-[1fr_88px_88px_24px] items-center gap-3 px-4 py-3 font-sans text-[13px] text-ink-900 ${
+              className={`grid grid-cols-[minmax(0,1fr)_56px_64px_20px] items-center gap-2 px-3 py-3 font-sans text-[13px] text-ink-900 sm:grid-cols-[1fr_88px_88px_24px] sm:gap-3 sm:px-4 ${
                 i !== arr.length - 1 ? "border-b border-ink-200/60" : ""
               }`}
             >
-              <span className="font-medium">{r.name}</span>
+              <span className="truncate font-medium">{r.name}</span>
               <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-sky-100 font-mono text-[10px] text-accent">
                 {r.owner}
               </span>

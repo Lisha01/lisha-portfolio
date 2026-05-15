@@ -53,17 +53,21 @@ function PricingMockup() {
 
         {/*
           THE FLAW — "Pro" card carries the "Most popular" badge but is
-          rendered washed-out (muted bg, no shadow, ink-400 typography,
-          flat outline), while the Business card gets the prominent
+          rendered washed-out (muted bg, no shadow, faded opacity, ink-400
+          typography), while the Business card gets the prominent
           treatment. Visual hierarchy contradicts the label.
+
+          Both Pro and Business carry data-flaw so either click registers
+          — the broken hierarchy involves both cards, so honor either
+          intuition ("this one's too muted" / "this one's too loud").
         */}
         <div
           data-flaw="true"
-          className="rounded-2xl border border-ink-200/40 bg-cream/60 p-6"
+          className="rounded-2xl border border-ink-200/40 bg-cream/60 p-6 opacity-75"
         >
           <div className="flex items-center justify-between">
             <p className="eyebrow text-ink-400">Pro</p>
-            <span className="inline-flex items-center rounded-full bg-ink-200/40 px-2 py-0.5 font-mono text-[9px] uppercase tracking-[0.16em] text-ink-400">
+            <span className="inline-flex items-center rounded-full bg-accent/15 px-2 py-0.5 font-mono text-[9px] uppercase tracking-[0.16em] text-accent">
               Most popular
             </span>
           </div>
@@ -103,8 +107,12 @@ function PricingMockup() {
           </button>
         </div>
 
-        {/* Business — heavy accent treatment that visually reads as recommended */}
-        <div className="rounded-2xl border-2 border-accent bg-white p-6 shadow-[0_18px_40px_-18px_rgba(74,124,183,0.45)]">
+        {/* Business — heavy accent treatment that visually reads as recommended.
+            Also data-flaw because the hierarchy inversion involves this card too. */}
+        <div
+          data-flaw="true"
+          className="rounded-2xl border-2 border-accent bg-white p-6 shadow-[0_18px_40px_-18px_rgba(74,124,183,0.45)]"
+        >
           <p className="eyebrow text-accent">Business</p>
           <p className="mt-3 font-display text-[28px] font-medium text-ink-900">
             $99

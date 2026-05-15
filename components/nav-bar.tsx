@@ -11,6 +11,7 @@ import { track } from "@/lib/analytics";
    page they navigate home and then scroll. */
 const links = [
   { label: "Work", href: "/#work" },
+  { label: "AI Work", href: "/#ai-work" },
   { label: "Experience", href: "/#experience" },
   { label: "Tools", href: "/#tools" },
   { label: "People", href: "/#people" },

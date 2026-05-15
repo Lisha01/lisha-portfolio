@@ -1,9 +1,9 @@
 import { challenge as c1 } from "./01-dashboard";
 import { challenge as c2 } from "./02-pricing-card";
 import { challenge as c3 } from "./03-form";
-import { challenge as c4 } from "./04-error-state";
+import { challenge as c4 } from "./04-articles";
 import { challenge as c5 } from "./05-mobile-nav";
-import { challenge as c6 } from "./06-data-table";
+import { challenge as c6 } from "./06-quick-actions";
 import { challenge as c7 } from "./07-modal";
 import { challenge as c8 } from "./08-onboarding";
 

@@ -1,6 +1,7 @@
 import { NavBar } from "@/components/nav-bar";
 import { ScrollHero } from "@/components/hero/scroll-hero";
 import { WorkBento } from "@/components/work-bento";
+import { AIWork } from "@/components/ai-work";
 import { ExperienceTimeline } from "@/components/experience-timeline";
 import { ToolsMarquee } from "@/components/tools-marquee";
 import { TestimonialsRow } from "@/components/testimonials-row";
@@ -13,6 +14,7 @@ export default function Home() {
       <main className="relative">
         <ScrollHero />
         <WorkBento />
+        <AIWork />
         <ExperienceTimeline />
         <ToolsMarquee />
         <TestimonialsRow />
